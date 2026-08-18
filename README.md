@@ -12,7 +12,7 @@
 [![OJS](https://img.shields.io/badge/OJS-3.5-brightgreen)](https://pkp.sfu.ca/ojs/)
 [![License](https://img.shields.io/badge/license-GPL--3.0-lightgrey)](LICENSE)
 
-**⬇️ Install package:** [OJS 3.5](../../releases) — or browse all [Releases](../../releases).
+**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/epubJsViewer/releases/download/1.1.0.0/epubJsViewer-1.1.0.0.tar.gz) — or browse all [Releases](../../releases).
 
 ## Why this plugin exists
 
