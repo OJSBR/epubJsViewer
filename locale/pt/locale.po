@@ -1,0 +1,37 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: epubJsViewer\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "plugins.generic.epubJsViewer.displayName"
+msgstr "Visualizador EPUB.js"
+
+msgid "plugins.generic.epubJsViewer.description"
+msgstr "Apresenta composições EPUB num leitor integrado baseado em epub.js."
+
+msgid "plugins.generic.epubJsViewer.previous"
+msgstr "Anterior"
+
+msgid "plugins.generic.epubJsViewer.next"
+msgstr "Seguinte"
+
+msgid "plugins.generic.epubJsViewer.toc"
+msgstr "Índice"
+
+msgid "plugins.generic.epubJsViewer.noScript"
+msgstr "Este leitor necessita de JavaScript."
+
+msgid "plugins.generic.epubJsViewer.loadError"
+msgstr "Não foi possível apresentar o EPUB no navegador."
+
+msgid "plugins.generic.epubJsViewer.zoomIn"
+msgstr "Aumentar o texto"
+
+msgid "plugins.generic.epubJsViewer.zoomOut"
+msgstr "Diminuir o texto"
+
+msgid "plugins.generic.epubJsViewer.mode"
+msgstr "Modo de leitura: duas páginas, uma página ou deslocamento"

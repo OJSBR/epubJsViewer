@@ -1,0 +1,37 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: epubJsViewer\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "plugins.generic.epubJsViewer.displayName"
+msgstr "EPUB.js Viewer"
+
+msgid "plugins.generic.epubJsViewer.description"
+msgstr "Displays EPUB galleys inside an embedded reader based on epub.js."
+
+msgid "plugins.generic.epubJsViewer.previous"
+msgstr "Previous"
+
+msgid "plugins.generic.epubJsViewer.next"
+msgstr "Next"
+
+msgid "plugins.generic.epubJsViewer.toc"
+msgstr "Table of contents"
+
+msgid "plugins.generic.epubJsViewer.noScript"
+msgstr "This reader needs JavaScript."
+
+msgid "plugins.generic.epubJsViewer.loadError"
+msgstr "The EPUB could not be displayed in the browser."
+
+msgid "plugins.generic.epubJsViewer.mode"
+msgstr "Reading mode: two pages, one page or scroll"
+
+msgid "plugins.generic.epubJsViewer.zoomIn"
+msgstr "Increase text size"
+
+msgid "plugins.generic.epubJsViewer.zoomOut"
+msgstr "Decrease text size"

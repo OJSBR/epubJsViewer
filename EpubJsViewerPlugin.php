@@ -1,0 +1,173 @@
+<?php
+
+/**
+ * @file plugins/generic/epubJsViewer/EpubJsViewerPlugin.php
+ *
+ * Copyright (c) 2026 OJSBR (https://ojsbr.com.br)
+ * Inspired by the original Bibi EPUB Viewer plugin by Lepidus Tecnologia,
+ * discontinued in 2025 because the Bibi reader was no longer maintained.
+ * Reader replaced by epub.js (FuturePress), which is actively maintained.
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ *
+ * @class EpubJsViewerPlugin
+ *
+ * @brief Embedded viewing of EPUB galleys using epub.js.
+ */
+
+namespace APP\plugins\generic\epubJsViewer;
+
+use APP\core\Application;
+use APP\template\TemplateManager;
+use Exception;
+use PKP\plugins\Hook;
+
+class EpubJsViewerPlugin extends \PKP\plugins\GenericPlugin
+{
+    public const EPUB_MIME_TYPE = 'application/epub+zip';
+
+    /**
+     * @copydoc Plugin::register()
+     */
+    public function register($category, $path, $mainContextId = null)
+    {
+        if (parent::register($category, $path, $mainContextId)) {
+            if ($this->getEnabled($mainContextId)) {
+                switch (Application::get()->getName()) {
+                    case 'ojs2':
+                        Hook::add('ArticleHandler::view::galley', $this->submissionCallback(...), Hook::SEQUENCE_LAST);
+                        Hook::add('IssueHandler::view::galley', $this->issueCallback(...), Hook::SEQUENCE_LAST);
+                        break;
+                    case 'ops':
+                        Hook::add('PreprintHandler::view::galley', $this->submissionCallback(...), Hook::SEQUENCE_LAST);
+                        break;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public function getDisplayName()
+    {
+        return __('plugins.generic.epubJsViewer.displayName');
+    }
+
+    public function getDescription()
+    {
+        return __('plugins.generic.epubJsViewer.description');
+    }
+
+    /**
+     * Present an EPUB article galley inside the epub.js reader.
+     */
+    public function submissionCallback($hookName, $args)
+    {
+        $request = &$args[0];
+        $application = Application::get();
+
+        switch ($application->getName()) {
+            case 'ojs2':
+                $issue = &$args[1];
+                $galley = &$args[2];
+                $submission = &$args[3];
+                $submissionNoun = 'article';
+                break;
+            case 'ops':
+                $galley = &$args[1];
+                $submission = &$args[2];
+                $submissionNoun = 'preprint';
+                $issue = null;
+                break;
+            default:
+                throw new Exception('Unknown application!');
+        }
+
+        if (!$galley || $galley->getFileType() !== self::EPUB_MIME_TYPE) {
+            return false;
+        }
+
+        $galleyPublication = null;
+        foreach ($submission->getData('publications') as $publication) {
+            if ($publication->getId() === $galley->getData('publicationId')) {
+                $galleyPublication = $publication;
+                break;
+            }
+        }
+        if (!$galleyPublication) {
+            return false;
+        }
+
+        $templateMgr = TemplateManager::getManager($request);
+
+        $epubUrl = $request->url(
+            null,
+            $submissionNoun,
+            'download',
+            [$submission->getBestId(), $galley->getBestGalleyId(), $galley->getFile()->getId()]
+        );
+        $parentUrl = $request->url(null, $submissionNoun, 'view', [$submission->getBestId()]);
+
+        $templateMgr->assign([
+            'displayTemplateResource' => $this->getTemplateResource('display.tpl'),
+            'pluginUrl' => $request->getBaseUrl() . '/' . $this->getPluginPath(),
+            'galleyFile' => $galley->getFile(),
+            'issue' => $issue,
+            'submission' => $submission,
+            'submissionNoun' => $submissionNoun,
+            'bestId' => $galleyPublication->getData('urlPath') ?? $submission->getId(),
+            'galley' => $galley,
+            'galleyPublication' => $galleyPublication,
+            'currentVersionString' => $application->getCurrentVersion()->getVersionString(false),
+            'isLatestPublication' => $submission->getData('currentPublicationId') === $galley->getData('publicationId'),
+            'title' => $galleyPublication->getLocalizedTitle(null, 'html'),
+            'isTitleHtml' => true,
+            'epubUrl' => $epubUrl,
+            'parentUrl' => $parentUrl,
+            'galleyTitle' => __('submission.representationOfTitle', [
+                'representation' => $galley->getLabel(),
+                'title' => $galleyPublication->getLocalizedFullTitle(),
+            ]),
+            'datePublished' => __('submission.outdatedVersion', [
+                'datePublished' => $galleyPublication->getData('datePublished'),
+                'urlRecentVersion' => $parentUrl,
+            ]),
+        ]);
+
+        $templateMgr->display($this->getTemplateResource('display.tpl'));
+        return true;
+    }
+
+    /**
+     * Present an EPUB issue galley inside the epub.js reader.
+     */
+    public function issueCallback($hookName, $args)
+    {
+        $request = &$args[0];
+        $issue = &$args[1];
+        $galley = &$args[2];
+
+        if (!$galley || $galley->getFileType() !== self::EPUB_MIME_TYPE) {
+            return false;
+        }
+
+        $templateMgr = TemplateManager::getManager($request);
+        $parentUrl = $request->url(null, 'issue', 'view', [$issue->getBestIssueId()]);
+
+        $templateMgr->assign([
+            'displayTemplateResource' => $this->getTemplateResource('display.tpl'),
+            'pluginUrl' => $request->getBaseUrl() . '/' . $this->getPluginPath(),
+            'issue' => $issue,
+            'galley' => $galley,
+            'galleyFile' => $galley->getFile(),
+            'isLatestPublication' => true,
+            'title' => $issue->getLocalizedTitle(),
+            'isTitleHtml' => false,
+            'epubUrl' => $request->url(null, 'issue', 'download', [$issue->getBestIssueId(), $galley->getBestGalleyId()]),
+            'parentUrl' => $parentUrl,
+            'galleyTitle' => $issue->getLocalizedTitle(),
+        ]);
+
+        $templateMgr->display($this->getTemplateResource('display.tpl'));
+        return true;
+    }
+}
