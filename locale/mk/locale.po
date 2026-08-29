@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: OJSBR\n"
+"Language-Team: OJSBR\n"
+"Language: mk\n"
+
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.displayName"
+msgstr "Прегледувач EPUB.js"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.description"
+msgstr "Ги прикажува EPUB изданијата во вграден прегледувач базиран на epub.js."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.previous"
+msgstr "Претходна"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.next"
+msgstr "Следна"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.toc"
+msgstr "Содржина"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.noScript"
+msgstr "Овој прегледувач бара JavaScript."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.loadError"
+msgstr "EPUB не може да се прикаже во прелистувачот."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.mode"
+msgstr "Режим на читање: две страници, една страница или лизгање"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomIn"
+msgstr "Зголеми ја големината на текстот"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomOut"
+msgstr "Намали ја големината на текстот"

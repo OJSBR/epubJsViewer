@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: OJSBR\n"
+"Language-Team: OJSBR\n"
+"Language: ka\n"
+
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.displayName"
+msgstr "EPUB.js მნახველი"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.description"
+msgstr "აჩვენებს EPUB ფაილებს epub.js-ზე დაფუძნებულ ჩაშენებულ მკითხველში."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.previous"
+msgstr "წინა"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.next"
+msgstr "შემდეგი"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.toc"
+msgstr "სარჩევი"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.noScript"
+msgstr "ამ მკითხველს JavaScript სჭირდება."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.loadError"
+msgstr "EPUB-ის ბრაუზერში ჩვენება ვერ მოხერხდა."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.mode"
+msgstr "კითხვის რეჟიმი: ორი გვერდი, ერთი გვერდი ან გადაფურცვლა"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomIn"
+msgstr "ტექსტის ზომის გაზრდა"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomOut"
+msgstr "ტექსტის ზომის შემცირება"

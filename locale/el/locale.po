@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: OJSBR\n"
+"Language-Team: OJSBR\n"
+"Language: el\n"
+
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.displayName"
+msgstr "Πρόγραμμα ανάγνωσης EPUB.js"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.description"
+msgstr "Εμφανίζει τα αρχεία EPUB σε ενσωματωμένο πρόγραμμα ανάγνωσης βασισμένο στο epub.js."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.previous"
+msgstr "Προηγούμενο"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.next"
+msgstr "Επόμενο"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.toc"
+msgstr "Πίνακας περιεχομένων"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.noScript"
+msgstr "Αυτό το πρόγραμμα ανάγνωσης απαιτεί JavaScript."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.loadError"
+msgstr "Δεν ήταν δυνατή η εμφάνιση του EPUB στο πρόγραμμα περιήγησης."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.mode"
+msgstr "Λειτουργία ανάγνωσης: δύο σελίδες, μία σελίδα ή κύλιση"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomIn"
+msgstr "Αύξηση μεγέθους κειμένου"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomOut"
+msgstr "Μείωση μεγέθους κειμένου"

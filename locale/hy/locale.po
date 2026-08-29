@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: OJSBR\n"
+"Language-Team: OJSBR\n"
+"Language: hy\n"
+
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.displayName"
+msgstr "EPUB.js դիտիչ"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.description"
+msgstr "Ցուցադրում է EPUB ֆայլերը epub.js-ի վրա հիմնված ներդրված ընթերցիչում։"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.previous"
+msgstr "Նախորդը"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.next"
+msgstr "Հաջորդը"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.toc"
+msgstr "Բովանդակություն"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.noScript"
+msgstr "Այս ընթերցիչին անհրաժեշտ է JavaScript։"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.loadError"
+msgstr "EPUB-ը հնարավոր չեղավ ցուցադրել դիտարկիչում։"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.mode"
+msgstr "Ընթերցման ռեժիմ՝ երկու էջ, մեկ էջ կամ ոլորում"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomIn"
+msgstr "Մեծացնել տեքստի չափը"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomOut"
+msgstr "Փոքրացնել տեքստի չափը"

@@ -1,38 +1,49 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: epubJsViewer\n"
-"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: OJSBR\n"
+"Language-Team: OJSBR\n"
+"Language: tr\n"
 
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.displayName"
-msgstr "EPUB.js-Viewer"
+msgstr "EPUB.js Görüntüleyici"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.description"
-msgstr "Zeigt EPUB-Fahnen in einem eingebetteten Reader auf Basis von epub.js an."
+msgstr "EPUB yayın dosyalarını epub.js tabanlı gömülü bir okuyucuda gösterir."
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.previous"
-msgstr "Zurück"
+msgstr "Geri"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.next"
-msgstr "Weiter"
+msgstr "İleri"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.toc"
-msgstr "Inhaltsverzeichnis"
+msgstr "İçindekiler"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.noScript"
-msgstr "Dieser Reader benötigt JavaScript."
+msgstr "Bu görüntüleyici JavaScript gerektirir."
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.loadError"
-msgstr "Das EPUB konnte im Browser nicht angezeigt werden."
+msgstr "EPUB tarayıcıda görüntülenemedi."
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.mode"
-msgstr "Lesemodus: zwei Seiten, eine Seite oder Bildlauf"
+msgstr "Okuma modu: iki sayfa, tek sayfa veya kaydırma"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.zoomIn"
-msgstr "Text vergrößern"
+msgstr "Yazı boyutunu büyüt"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.zoomOut"
-msgstr "Text verkleinern"
+msgstr "Yazı boyutunu küçült"

@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: OJSBR\n"
+"Language-Team: OJSBR\n"
+"Language: hu\n"
+
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.displayName"
+msgstr "EPUB.js olvasó"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.description"
+msgstr "Az EPUB megjelenítési formákat beágyazott, epub.js alapú olvasóban jeleníti meg."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.previous"
+msgstr "Előző"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.next"
+msgstr "Következő"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.toc"
+msgstr "Tartalomjegyzék"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.noScript"
+msgstr "Ehhez az olvasóhoz JavaScript szükséges."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.loadError"
+msgstr "Az EPUB nem jeleníthető meg a böngészőben."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.mode"
+msgstr "Olvasási mód: két oldal, egy oldal vagy görgetés"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomIn"
+msgstr "Szöveg méretének növelése"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomOut"
+msgstr "Szöveg méretének csökkentése"

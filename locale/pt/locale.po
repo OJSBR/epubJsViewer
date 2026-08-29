@@ -6,6 +6,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+
 msgid "plugins.generic.epubJsViewer.displayName"
 msgstr "Visualizador EPUB.js"
 
@@ -27,11 +28,11 @@ msgstr "Este leitor necessita de JavaScript."
 msgid "plugins.generic.epubJsViewer.loadError"
 msgstr "Não foi possível apresentar o EPUB no navegador."
 
+msgid "plugins.generic.epubJsViewer.mode"
+msgstr "Modo de leitura: duas páginas, uma página ou deslocamento"
+
 msgid "plugins.generic.epubJsViewer.zoomIn"
 msgstr "Aumentar o texto"
 
 msgid "plugins.generic.epubJsViewer.zoomOut"
 msgstr "Diminuir o texto"
-
-msgid "plugins.generic.epubJsViewer.mode"
-msgstr "Modo de leitura: duas páginas, uma página ou deslocamento"

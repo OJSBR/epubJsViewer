@@ -1,38 +1,49 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: epubJsViewer\n"
-"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: OJSBR\n"
+"Language-Team: OJSBR\n"
+"Language: ro\n"
 
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.displayName"
-msgstr "EPUB.js-Viewer"
+msgstr "Vizualizator EPUB.js"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.description"
-msgstr "Zeigt EPUB-Fahnen in einem eingebetteten Reader auf Basis von epub.js an."
+msgstr "Afișează versiunile EPUB într-un cititor încorporat bazat pe epub.js."
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.previous"
-msgstr "Zurück"
+msgstr "Anteriorul"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.next"
-msgstr "Weiter"
+msgstr "Următorul"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.toc"
-msgstr "Inhaltsverzeichnis"
+msgstr "Cuprins"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.noScript"
-msgstr "Dieser Reader benötigt JavaScript."
+msgstr "Acest cititor necesită JavaScript."
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.loadError"
-msgstr "Das EPUB konnte im Browser nicht angezeigt werden."
+msgstr "Fișierul EPUB nu a putut fi afișat în browser."
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.mode"
-msgstr "Lesemodus: zwei Seiten, eine Seite oder Bildlauf"
+msgstr "Mod de lectură: două pagini, o pagină sau derulare"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.zoomIn"
-msgstr "Text vergrößern"
+msgstr "Mărește dimensiunea textului"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.zoomOut"
-msgstr "Text verkleinern"
+msgstr "Micșorează dimensiunea textului"

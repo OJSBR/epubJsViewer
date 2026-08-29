@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: OJSBR\n"
+"Language-Team: OJSBR\n"
+"Language: ja\n"
+
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.displayName"
+msgstr "EPUB.js ビューア"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.description"
+msgstr "EPUB のゲラを epub.js ベースの埋め込みビューアで表示します。"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.previous"
+msgstr "前へ"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.next"
+msgstr "次へ"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.toc"
+msgstr "目次"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.noScript"
+msgstr "このビューアには JavaScript が必要です。"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.loadError"
+msgstr "EPUB をブラウザーで表示できませんでした。"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.mode"
+msgstr "表示モード: 見開き・単ページ・スクロール"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomIn"
+msgstr "文字を大きくする"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomOut"
+msgstr "文字を小さくする"

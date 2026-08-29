@@ -1,38 +1,49 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: epubJsViewer\n"
-"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: OJSBR\n"
+"Language-Team: OJSBR\n"
+"Language: sv\n"
 
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.displayName"
-msgstr "EPUB.js-Viewer"
+msgstr "EPUB.js-läsare"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.description"
-msgstr "Zeigt EPUB-Fahnen in einem eingebetteten Reader auf Basis von epub.js an."
+msgstr "Visar EPUB-filversioner i en inbäddad läsare baserad på epub.js."
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.previous"
-msgstr "Zurück"
+msgstr "Föregående"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.next"
-msgstr "Weiter"
+msgstr "Nästa"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.toc"
-msgstr "Inhaltsverzeichnis"
+msgstr "Innehållsförteckning"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.noScript"
-msgstr "Dieser Reader benötigt JavaScript."
+msgstr "Den här läsaren kräver JavaScript."
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.loadError"
-msgstr "Das EPUB konnte im Browser nicht angezeigt werden."
+msgstr "EPUB-filen kunde inte visas i webbläsaren."
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.mode"
-msgstr "Lesemodus: zwei Seiten, eine Seite oder Bildlauf"
+msgstr "Läsläge: två sidor, en sida eller rullning"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.zoomIn"
-msgstr "Text vergrößern"
+msgstr "Öka textstorleken"
 
+#, fuzzy
 msgid "plugins.generic.epubJsViewer.zoomOut"
-msgstr "Text verkleinern"
+msgstr "Minska textstorleken"

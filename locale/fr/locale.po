@@ -1,38 +1,38 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: epubJsViewer\n"
-"Language: de\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 
 msgid "plugins.generic.epubJsViewer.displayName"
-msgstr "EPUB.js-Viewer"
+msgstr "Lecteur EPUB.js"
 
 msgid "plugins.generic.epubJsViewer.description"
-msgstr "Zeigt EPUB-Fahnen in einem eingebetteten Reader auf Basis von epub.js an."
+msgstr "Affiche les épreuves EPUB dans un lecteur intégré basé sur epub.js."
 
 msgid "plugins.generic.epubJsViewer.previous"
-msgstr "Zurück"
+msgstr "Précédent"
 
 msgid "plugins.generic.epubJsViewer.next"
-msgstr "Weiter"
+msgstr "Suivant"
 
 msgid "plugins.generic.epubJsViewer.toc"
-msgstr "Inhaltsverzeichnis"
+msgstr "Table des matières"
 
 msgid "plugins.generic.epubJsViewer.noScript"
-msgstr "Dieser Reader benötigt JavaScript."
+msgstr "Ce lecteur nécessite JavaScript."
 
 msgid "plugins.generic.epubJsViewer.loadError"
-msgstr "Das EPUB konnte im Browser nicht angezeigt werden."
+msgstr "Impossible d'afficher l'EPUB dans le navigateur."
 
 msgid "plugins.generic.epubJsViewer.mode"
-msgstr "Lesemodus: zwei Seiten, eine Seite oder Bildlauf"
+msgstr "Mode de lecture : deux pages, une page ou défilement"
 
 msgid "plugins.generic.epubJsViewer.zoomIn"
-msgstr "Text vergrößern"
+msgstr "Agrandir le texte"
 
 msgid "plugins.generic.epubJsViewer.zoomOut"
-msgstr "Text verkleinern"
+msgstr "Réduire le texte"

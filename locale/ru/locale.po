@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: OJSBR\n"
+"Language-Team: OJSBR\n"
+"Language: ru\n"
+
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.displayName"
+msgstr "Просмотрщик EPUB.js"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.description"
+msgstr "Показывает гранки EPUB во встроенном просмотрщике на основе epub.js."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.previous"
+msgstr "Назад"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.next"
+msgstr "Далее"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.toc"
+msgstr "Содержание"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.noScript"
+msgstr "Для этого просмотрщика нужен JavaScript."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.loadError"
+msgstr "Не удалось отобразить EPUB в браузере."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.mode"
+msgstr "Режим чтения: две страницы, одна страница или прокрутка"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomIn"
+msgstr "Увеличить размер текста"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomOut"
+msgstr "Уменьшить размер текста"

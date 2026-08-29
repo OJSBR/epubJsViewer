@@ -12,7 +12,7 @@
 [![OJS](https://img.shields.io/badge/OJS-3.5-brightgreen)](https://pkp.sfu.ca/ojs/)
 [![License](https://img.shields.io/badge/license-GPL--3.0-lightgrey)](LICENSE)
 
-**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/epubJsViewer/releases/download/1.1.0.0/epubJsViewer-1.1.0.0.tar.gz) — or browse all [Releases](../../releases).
+**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/epubJsViewer/releases/download/1.1.0.1/epubJsViewer-1.1.0.1.tar.gz) — or browse all [Releases](../../releases).
 
 ## Why this plugin exists
 
@@ -36,7 +36,7 @@ useful for the wider community.
 
 | OJS/OPS | Branch | Release |
 |---|---|---|
-| 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(default)* | 1.1.0.0 |
+| 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(default)* | 1.1.0.1 |
 
 Requires PHP 8.2+.
 
@@ -115,7 +115,7 @@ interesse para a comunidade em geral.
 
 | OJS/OPS | Branch | Release |
 |---|---|---|
-| 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(padrão)* | 1.1.0.0 |
+| 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(padrão)* | 1.1.0.1 |
 
 Requer PHP 8.2+.
 

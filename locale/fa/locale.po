@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: OJSBR\n"
+"Language-Team: OJSBR\n"
+"Language: fa\n"
+
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.displayName"
+msgstr "نمایشگر EPUB.js"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.description"
+msgstr "نسخه‌های EPUB را در نمایشگری توکار مبتنی بر epub.js نشان می‌دهد."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.previous"
+msgstr "قبلی"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.next"
+msgstr "بعدی"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.toc"
+msgstr "فهرست مطالب"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.noScript"
+msgstr "این نمایشگر به JavaScript نیاز دارد."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.loadError"
+msgstr "نمایش EPUB در مرورگر ممکن نشد."
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.mode"
+msgstr "حالت خواندن: دو صفحه، یک صفحه یا پیمایش"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomIn"
+msgstr "بزرگ کردن اندازهٔ متن"
+
+#, fuzzy
+msgid "plugins.generic.epubJsViewer.zoomOut"
+msgstr "کوچک کردن اندازهٔ متن"
