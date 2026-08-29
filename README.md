@@ -10,6 +10,7 @@
 > [Credits & acknowledgements](#credits--acknowledgements) section.
 
 [![OJS](https://img.shields.io/badge/OJS-3.5-brightgreen)](https://pkp.sfu.ca/ojs/)
+[![Version](https://img.shields.io/badge/version-1.1.0.1-blue)](version.xml)
 [![License](https://img.shields.io/badge/license-GPL--3.0-lightgrey)](LICENSE)
 
 **⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/epubJsViewer/releases/download/1.1.0.1/epubJsViewer-1.1.0.1.tar.gz) — or browse all [Releases](../../releases).
