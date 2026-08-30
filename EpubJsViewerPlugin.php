@@ -41,6 +41,8 @@ class EpubJsViewerPlugin extends \PKP\plugins\GenericPlugin
 
     /**
      * @copydoc Plugin::register()
+     *
+     * @param null|mixed $mainContextId
      */
     public function register($category, $path, $mainContextId = null)
     {
@@ -169,11 +171,27 @@ class EpubJsViewerPlugin extends \PKP\plugins\GenericPlugin
      */
     private function isEpub($submissionFile): bool
     {
-        $mimetype = $submissionFile->getData('mimetype');
+        return self::isEpubFile(
+            $submissionFile->getData('mimetype'),
+            $submissionFile->getLocalizedData('name'),
+            $submissionFile->getData('path')
+        );
+    }
+
+    /**
+     * Decide se o arquivo e um EPUB.
+     *
+     * Puro de proposito: separado do objeto de arquivo, e a regra que decide se
+     * o plugin assume ou nao a renderizacao, e da para cobrir por teste sem subir
+     * aplicacao. A extensao tem voz porque nem todo envio chega com o mimetype
+     * correto — o OMP grava application/octet-stream em alguns casos.
+     */
+    public static function isEpubFile(?string $mimetype, ?string $name, ?string $path): bool
+    {
         if ($mimetype === self::EPUB_MIME_TYPE) {
             return true;
         }
-        foreach ([$submissionFile->getLocalizedData('name'), $submissionFile->getData('path')] as $nome) {
+        foreach ([$name, $path] as $nome) {
             if ($nome && strtolower(pathinfo($nome, PATHINFO_EXTENSION)) === 'epub') {
                 return true;
             }

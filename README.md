@@ -10,10 +10,12 @@
 > [Credits & acknowledgements](#credits--acknowledgements) section.
 
 [![OJS](https://img.shields.io/badge/OJS-3.5-brightgreen)](https://pkp.sfu.ca/ojs/)
-[![Version](https://img.shields.io/badge/version-1.2.0.3-blue)](version.xml)
+[![Version](https://img.shields.io/badge/version-1.2.0.4-blue)](version.xml)
 [![License](https://img.shields.io/badge/license-GPL--3.0-lightgrey)](LICENSE)
 
-**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/epubJsViewer/releases/download/1.2.0.3/epubJsViewer-1.2.0.3.tar.gz) — or browse all [Releases](../../releases).
+**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/epubJsViewer/releases/download/1.2.0.4/epubJsViewer-1.2.0.4.tar.gz) — or browse all [Releases](../../releases).
+
+**▶️ Live demo:** [Editora UEMG — book with an EPUB format](https://ebooks.editora.uemg.br/editora/pt_BR/catalog/book/1)
 
 ## Why this plugin exists
 
@@ -37,7 +39,7 @@ useful for the wider community.
 
 | Application | Version | Branch | Release |
 |---|---|---|---|
-| OJS / OPS / OMP | 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(default)* | 1.2.0.3 |
+| OJS / OPS / OMP | 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(default)* | 1.2.0.4 |
 
 Requires PHP 8.2+.
 
@@ -94,6 +96,38 @@ EPUB content is rendered with `allowScriptedContent: false`, so scripts embedded
 Dashboard → Settings → Website → Plugins → Upload A New Plugin, or unpack into `plugins/generic/`
 and enable it under Installed Plugins. No configuration is required.
 
+## Tests
+
+PHPUnit, in the PKP `ApplicationPlugins` suite:
+
+```bash
+cd lib/pkp/tests
+php ../lib/vendor/bin/phpunit --no-coverage -c phpunit.xml \
+  /absolute/path/to/plugins/generic/epubJsViewer/tests
+```
+
+7 tests / 484 assertions covering EPUB detection by mimetype and by file extension on
+either the display name or the stored path (the extension has a vote because not every
+upload arrives with the right mimetype), the rejection of every other format, and locale
+integrity: every locale carrying every key with no empty value, no legacy locale codes,
+and every key used in a template present in `locale/en`, since in 3.5 a missing key
+renders as `##key##` instead of falling back to English.
+
+Cypress, from the installation root:
+
+```bash
+npx cypress run \
+  --config specPattern='plugins/generic/epubJsViewer/cypress/tests/functional/*.cy.js' \
+  --env contextPath=mypress,adminUsername=admin,adminPassword=secret
+```
+
+3 specs: enabling the plugin, an EPUB opening in the reader instead of downloading, and
+paging, zoom and the way back. The specs discover the content instead of hard-coding an
+id, so the same file runs on OJS, OPS and OMP; they were executed against both an OJS 3.5
+and an OMP 3.5 installation. The "way back" assertion demands the link be **visible**, not
+merely present: on OMP it was once in the DOM at zero width, because the OMP core styles
+`.header_viewable_file` and does not know the `.header_view` this template uses.
+
 ## Credits & acknowledgements
 
 - **[Lepidus Tecnologia](https://github.com/lepidus)** — authors of the original `epubViewer` plugin
@@ -120,6 +154,9 @@ GNU GPL v3 — see [LICENSE](LICENSE). epub.js is BSD-2-Clause; JSZip is MIT.
 > **[epub.js](https://github.com/futurepress/epub.js)**, da **[FuturePress](https://github.com/futurepress)**,
 > que segue mantido. Desenvolvido e mantido pela **[OJSBR](https://ojsbr.com)**.
 
+
+**▶️ Demonstração:** [Editora UEMG — livro com formato EPUB](https://ebooks.editora.uemg.br/editora/pt_BR/catalog/book/1)
+
 ### Por que este plugin existe
 
 O `epubViewer` exibia composições EPUB dentro do OJS usando o leitor Bibi. Em 2025 a Lepidus incluiu
@@ -142,7 +179,7 @@ interesse para a comunidade em geral.
 
 | Aplicação | Versão | Branch | Release |
 |---|---|---|---|
-| OJS / OPS / OMP | 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(padrão)* | 1.2.0.3 |
+| OJS / OPS / OMP | 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(padrão)* | 1.2.0.4 |
 
 Requer PHP 8.2+.
 
@@ -200,6 +237,32 @@ embutidos no arquivo não são executados.
 
 Painel → Configurações → Website → Plugins → Enviar um novo plugin, ou descompacte em
 `plugins/generic/` e habilite em Plugins Instalados. Não requer configuração.
+
+### Testes
+
+PHPUnit, na suíte `ApplicationPlugins` da PKP:
+
+```bash
+cd lib/pkp/tests
+php ../lib/vendor/bin/phpunit --no-coverage -c phpunit.xml \
+  /caminho/absoluto/plugins/generic/epubJsViewer/tests
+```
+
+7 testes / 484 asserções cobrindo a detecção de EPUB pelo mimetype e pela extensão (a
+extensão tem voz porque nem todo envio chega com o mimetype certo), a recusa de todos os
+outros formatos e a integridade dos 38 locales.
+
+Cypress, a partir da raiz da instalação:
+
+```bash
+npx cypress run \
+  --config specPattern='plugins/generic/epubJsViewer/cypress/tests/functional/*.cy.js' \
+  --env contextPath=minhaeditora,adminUsername=admin,adminPassword=senha
+```
+
+3 specs: ligar o plugin, um EPUB abrir no leitor em vez de baixar, e a paginação, o zoom e
+o link de voltar. Os specs descobrem o conteúdo em vez de cravar id, então o mesmo arquivo
+roda em OJS, OPS e OMP — e foram executados numa instalação OJS 3.5 e numa OMP 3.5.
 
 ### Créditos e agradecimentos
 
