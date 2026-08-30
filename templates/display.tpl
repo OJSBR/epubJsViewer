@@ -11,11 +11,12 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset={$defaultCharset|escape}" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	{* O OMP nao tem article.pageTitle; a pagina do livro usa o titulo cru. *}
 	<title>
 	{if $isTitleHtml}
-		{translate key="article.pageTitle" title=$title|strip_tags|escape}
+		{$title|strip_tags|escape}
 	{else}
-		{translate key="article.pageTitle" title=$title|escape}
+		{$title|escape}
 	{/if}
 	</title>
 	{load_header context="frontend" headers=$headers}
@@ -28,7 +29,10 @@
 	<header class="header_view">
 		<a href="{$parentUrl}" class="return">
 			<span class="pkp_screen_reader">
-				{if $issue && !$submission}{translate key="issue.return"}{else}{translate key="article.return"}{/if}
+				{* article.return/issue.return so existem no OJS; common.back esta nas tres. *}
+				{if $issue && !$submission}{translate key="issue.return"}
+				{elseif $issue}{translate key="article.return"}
+				{else}{translate key="common.back"}{/if}
 			</span>
 		</a>
 		<span class="title">{$galleyTitle|escape}</span>

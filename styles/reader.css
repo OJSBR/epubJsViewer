@@ -24,3 +24,55 @@ body.epubjs_viewer { margin: 0; display: flex; flex-direction: column; height: 1
     .epubjs_toc { max-width: 100%; order: 5; flex-basis: 100%; }
     .epubjs_toolbar { gap: .35rem; }
 }
+
+/* ---------------------------------------------------------------------------
+   Cabecalho do leitor no OMP.
+
+   O nucleo do OMP estiliza .header_viewable_file (o leitor de PDF) e nao
+   conhece .header_view, que e a classe usada por este template. No OJS/OPS o
+   nucleo ja estiliza .header_view, entao o porte para o OMP ficou com o
+   cabecalho totalmente sem estilo: o link "Voltar" colapsa para largura zero
+   (o rotulo esta em .pkp_screen_reader e nada desenha a seta) e some da tela.
+
+   Escopado em .pkp_page_catalog, que so existe no OMP, para nao sobrescrever
+   o visual que o OJS/OPS ja aplicam. Valores copiados do .header_viewable_file
+   do proprio OMP, para os dois leitores ficarem identicos.
+   --------------------------------------------------------------------------- */
+body.epubjs_viewer.pkp_page_catalog .header_view {
+    position: relative; z-index: 2; flex: 0 0 auto;
+    background: #006798; line-height: 2.143rem;
+}
+body.epubjs_viewer.pkp_page_catalog .header_view a { text-decoration: none; }
+
+body.epubjs_viewer.pkp_page_catalog .header_view .return {
+    position: absolute; top: 0; left: 0;
+    width: 2.143rem; height: 2.143rem; line-height: 2.143rem;
+    color: #006798; text-align: center; background: #fff;
+}
+body.epubjs_viewer.pkp_page_catalog .header_view .return:before {
+    display: inline-block; font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit; text-rendering: auto;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    content: "\f060";   /* seta para a esquerda, a mesma do leitor de PDF */
+}
+body.epubjs_viewer.pkp_page_catalog .header_view .return:hover,
+body.epubjs_viewer.pkp_page_catalog .header_view .return:focus {
+    background: #008acb; color: #fff;
+}
+
+body.epubjs_viewer.pkp_page_catalog .header_view .title,
+body.epubjs_viewer.pkp_page_catalog .header_view .download {
+    display: block; font-size: .93rem; font-weight: 700;
+}
+body.epubjs_viewer.pkp_page_catalog .header_view .title {
+    padding-left: 2.857rem; padding-right: 9rem; color: #fff;
+    max-width: 100%; overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+body.epubjs_viewer.pkp_page_catalog .header_view .download {
+    position: absolute; top: 0; right: 0; padding: 0 1.43rem;
+    text-align: center; background: #fff; color: #006798;
+}
+body.epubjs_viewer.pkp_page_catalog .header_view .download:before {
+    display: inline-block; font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit; margin-right: .4rem; content: "\f019";
+}

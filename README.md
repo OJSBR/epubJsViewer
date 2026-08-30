@@ -1,4 +1,4 @@
-# EPUB.js Viewer — OJS plugin
+# EPUB.js Viewer — OJS / OPS / OMP plugin
 
 > **Based on the original `epubViewer` plugin** by **[Lepidus Tecnologia](https://github.com/lepidus)**,
 > which served Brazilian journals for years and was **discontinued in 2025** because the
@@ -10,10 +10,10 @@
 > [Credits & acknowledgements](#credits--acknowledgements) section.
 
 [![OJS](https://img.shields.io/badge/OJS-3.5-brightgreen)](https://pkp.sfu.ca/ojs/)
-[![Version](https://img.shields.io/badge/version-1.1.0.1-blue)](version.xml)
+[![Version](https://img.shields.io/badge/version-1.2.0.3-blue)](version.xml)
 [![License](https://img.shields.io/badge/license-GPL--3.0-lightgrey)](LICENSE)
 
-**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/epubJsViewer/releases/download/1.1.0.1/epubJsViewer-1.1.0.1.tar.gz) — or browse all [Releases](../../releases).
+**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/epubJsViewer/releases/download/1.2.0.3/epubJsViewer-1.2.0.3.tar.gz) — or browse all [Releases](../../releases).
 
 ## Why this plugin exists
 
@@ -35,11 +35,37 @@ useful for the wider community.
 
 ## Compatibility & branches
 
-| OJS/OPS | Branch | Release |
-|---|---|---|
-| 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(default)* | 1.1.0.1 |
+| Application | Version | Branch | Release |
+|---|---|---|---|
+| OJS / OPS / OMP | 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(default)* | 1.2.0.3 |
 
 Requires PHP 8.2+.
+
+### OMP support (since 1.2.0.0)
+
+OMP has no galleys: a publication format plus a submission file play the part that a single
+`ArticleGalley` plays in OJS, and there are no issue galleys at all. The plugin registers a
+different hook per application, and no core file is touched:
+
+| Application | Hook |
+|---|---|
+| OJS | `ArticleHandler::view::galley`, `IssueHandler::view::galley` |
+| OPS | `PreprintHandler::view::galley` |
+| OMP | `CatalogBookHandler::view` |
+
+On OMP the hook fires only after the core has validated that the publication format is
+available and not remote, the publication is published, the file belongs to that format, and
+access is open or paid — no authorization rule is reimplemented by the plugin.
+
+### Known limitation: single-file EPUBs
+
+epub.js renders one EPUB section per iframe. An EPUB that packs the whole book into one or two
+huge XHTML sections — Project Gutenberg does this — is laid out in paginated flow as a single
+column strip tens of thousands of pixels wide, which the browser cannot paint; with
+`spread: 'auto'` it can freeze the tab. Measured on a 211 KB section: a 99,792 px wide view,
+blank. The cover section of the same file, at 377 bytes, renders correctly.
+
+EPUBs with one XHTML per chapter — what publishing tools normally produce — are unaffected.
 
 ## What it does
 
@@ -114,11 +140,38 @@ interesse para a comunidade em geral.
 
 ### Compatibilidade e branches
 
-| OJS/OPS | Branch | Release |
-|---|---|---|
-| 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(padrão)* | 1.1.0.1 |
+| Aplicação | Versão | Branch | Release |
+|---|---|---|---|
+| OJS / OPS / OMP | 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(padrão)* | 1.2.0.3 |
 
 Requer PHP 8.2+.
+
+#### Suporte a OMP (a partir da 1.2.0.0)
+
+O OMP não tem galley: o par formato de publicação + arquivo faz o papel que no OJS cabe a um
+único `ArticleGalley`, e não existe galley de fascículo. O plugin registra um hook diferente
+por aplicação, sem tocar em nenhum arquivo do core:
+
+| Aplicação | Hook |
+|---|---|
+| OJS | `ArticleHandler::view::galley`, `IssueHandler::view::galley` |
+| OPS | `PreprintHandler::view::galley` |
+| OMP | `CatalogBookHandler::view` |
+
+No OMP o hook só é alcançado depois de o core validar formato disponível e não remoto,
+publicação publicada, arquivo pertencente ao formato e acesso aberto ou compra paga — nenhuma
+regra de autorização é reimplementada pelo plugin.
+
+#### Limitação conhecida: EPUB de arquivo único
+
+O epub.js renderiza uma seção do EPUB por iframe. Um EPUB que empacota o livro inteiro em uma
+ou duas seções XHTML enormes — como faz o Project Gutenberg — é montado, em fluxo paginado,
+como uma tira de colunas de dezenas de milhares de pixels, que o navegador não consegue pintar;
+com `spread: 'auto'` chega a travar a aba. Medido numa seção de 211 KB: view de 99.792 px,
+em branco. A seção de capa do mesmo arquivo, com 377 bytes, renderiza corretamente.
+
+EPUBs com um XHTML por capítulo — o que as ferramentas de editoração normalmente produzem —
+não são afetados.
 
 ### O que faz
 

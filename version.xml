@@ -7,12 +7,13 @@
   * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
   *
   * Plugin version information.
+  * 1.2.0.0 acrescenta suporte a OMP (hook CatalogBookHandler::view).
   -->
 <version>
 	<application>epubJsViewer</application>
 	<type>plugins.generic</type>
-	<release>1.1.0.1</release>
-	<date>2026-08-29</date>
+	<release>1.2.0.3</release>
+	<date>2026-08-30</date>
 	<lazy-load>1</lazy-load>
 	<class>EpubJsViewerPlugin</class>
 </version>
