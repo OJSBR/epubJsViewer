@@ -3,153 +3,152 @@
 /**
  * @file plugins/generic/epubJsViewer/EpubJsViewerPlugin.php
  *
- * Copyright (c) 2026 OJSBR (https://ojsbr.com.br)
- * Inspired by the original Bibi EPUB Viewer plugin by Lepidus Tecnologia,
- * discontinued in 2025 because the Bibi reader was no longer maintained.
- * Reader replaced by epub.js (FuturePress), which is actively maintained.
+ * Copyright (c) 2026 OJSBR (https://ojsbr.com)
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class EpubJsViewerPlugin
  *
- * @brief Leitura embutida de EPUB com epub.js.
+ * @brief Embedded reading of EPUB files with epub.js.
  *
- *        Porte do plugin de OJS/OPS para o OMP. As tres aplicacoes exibem
- *        o arquivo por caminhos diferentes:
+ * Based on the idea of the epubViewer plugin by Lepidus Tecnologia, discontinued
+ * in 2025 because its Bibi reader was no longer maintained. The reader is
+ * epub.js (FuturePress), which is.
  *
- *          OJS  ArticleHandler::view::galley   [$request, $issue, $galley, $submission]
- *          OPS  PreprintHandler::view::galley  [$request, $galley, $submission]
- *          OMP  CatalogBookHandler::view       [&$handler, &$submission,
- *                                               &$publicationFormat, &$submissionFile]
+ * The three applications show a file through different handlers:
  *
- *        O OMP nao tem galley: o par formato de publicacao + arquivo faz o
- *        papel que no OJS cabe a um unico objeto ArticleGalley. Tambem nao
- *        existe galley de fasciculo, entao o caminho de issue nao se aplica.
+ *   OJS  ArticleHandler::view::galley   [$request, $issue, $galley, $submission]
+ *        IssueHandler::view::galley     [$request, $issue, $galley]
+ *   OPS  PreprintHandler::view::galley  [$request, $galley, $submission]
+ *   OMP  CatalogBookHandler::view       [$handler, $submission, $publicationFormat, $submissionFile]
  *
- *        Nenhum arquivo do core e alterado.
+ * OMP has no galleys: a publication format plus a submission file play the part
+ * of the OJS galley, and there are no issue galleys. No core file is replaced.
  */
 
 namespace APP\plugins\generic\epubJsViewer;
 
 use APP\core\Application;
 use APP\template\TemplateManager;
-use Exception;
+use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
 
-class EpubJsViewerPlugin extends \PKP\plugins\GenericPlugin
+class EpubJsViewerPlugin extends GenericPlugin
 {
     public const EPUB_MIME_TYPE = 'application/epub+zip';
 
     /**
-     * @copydoc Plugin::register()
+     * Register the plugin and, where it is enabled, the hook of the application.
      *
-     * @param null|mixed $mainContextId
+     * @param string $category
+     * @param string $path
+     * @param null|int $mainContextId
      */
-    public function register($category, $path, $mainContextId = null)
+    public function register($category, $path, $mainContextId = null): bool
     {
-        if (parent::register($category, $path, $mainContextId)) {
-            if ($this->getEnabled($mainContextId)) {
-                switch (Application::get()->getName()) {
-                    case 'ojs2':
-                        Hook::add('ArticleHandler::view::galley', $this->submissionCallback(...), Hook::SEQUENCE_LAST);
-                        Hook::add('IssueHandler::view::galley', $this->issueCallback(...), Hook::SEQUENCE_LAST);
-                        break;
-                    case 'ops':
-                        Hook::add('PreprintHandler::view::galley', $this->submissionCallback(...), Hook::SEQUENCE_LAST);
-                        break;
-                    case 'omp':
-                        Hook::add('CatalogBookHandler::view', $this->bookCallback(...), Hook::SEQUENCE_LAST);
-                        break;
-                }
-            }
-            return true;
+        $success = parent::register($category, $path, $mainContextId);
+        if (!$success || Application::isUnderMaintenance() || !$this->getEnabled($mainContextId)) {
+            return $success;
         }
-        return false;
+
+        // Only reader-facing requests reach these handlers, and they always carry a context.
+        switch (Application::get()->getName()) {
+            case 'ojs2':
+                Hook::add('ArticleHandler::view::galley', $this->submissionCallback(...), Hook::SEQUENCE_LAST);
+                Hook::add('IssueHandler::view::galley', $this->issueCallback(...), Hook::SEQUENCE_LAST);
+                break;
+            case 'ops':
+                Hook::add('PreprintHandler::view::galley', $this->submissionCallback(...), Hook::SEQUENCE_LAST);
+                break;
+            case 'omp':
+                Hook::add('CatalogBookHandler::view', $this->bookCallback(...), Hook::SEQUENCE_LAST);
+                break;
+        }
+
+        return $success;
     }
 
     /**
-     * Nome estavel no registry e nas URLs do gerenciador de plugins.
+     * Name shown in the plugins list.
      */
-    public function getName()
-    {
-        return 'epubjsviewerplugin';
-    }
-
-    public function getDisplayName()
+    public function getDisplayName(): string
     {
         return __('plugins.generic.epubJsViewer.displayName');
     }
 
-    public function getDescription()
+    /**
+     * Description shown in the plugins list.
+     */
+    public function getDescription(): string
     {
         return __('plugins.generic.epubJsViewer.description');
     }
 
     /**
-     * OMP: exibe um arquivo EPUB de um formato de publicacao no leitor.
+     * Whether a file is an EPUB.
      *
-     * O hook e disparado por CatalogBookHandler::download() com $view = true,
-     * ou seja, depois de o core validar formato disponivel e nao remoto,
-     * publicacao publicada, arquivo pertencente ao formato, acesso aberto ou
-     * compra paga e a restricao de acesso da editora. Devolver true faz o
-     * core encerrar sem entregar o arquivo.
-     *
-     * @param string $hookName
-     * @param array  $args     [&$handler, &$submission, &$publicationFormat, &$submissionFile]
-     *
-     * @return bool true quando o leitor foi exibido
+     * The extension counts too: not every upload arrives with the right mimetype,
+     * and OMP stores application/octet-stream for some of them.
      */
-    public function bookCallback($hookName, $args)
+    public static function isEpubFile(?string $mimetype, ?string $name, ?string $path): bool
     {
-        $handler = $args[0] ?? null;
-        $submission = $args[1] ?? null;
-        $publicationFormat = $args[2] ?? null;
-        $submissionFile = $args[3] ?? null;
-
-        if (!$handler || !$submission || !$publicationFormat || !$submissionFile) {
-            return false;
+        if ($mimetype === self::EPUB_MIME_TYPE) {
+            return true;
+        }
+        foreach ([$name, $path] as $candidate) {
+            if ($candidate && strtolower(pathinfo($candidate, PATHINFO_EXTENSION)) === 'epub') {
+                return true;
+            }
         }
 
-        if (!$this->isEpub($submissionFile)) {
-            return false;
+        return false;
+    }
+
+    /**
+     * OMP: show an EPUB file of a publication format in the reader.
+     *
+     * The hook is called by CatalogBookHandler::download() with $view = true, after
+     * the core has checked that the format is available and not remote, that the
+     * publication is published, that the file belongs to the format and that access
+     * is open or paid for. No authorization rule is repeated here.
+     *
+     * @param string $hookName
+     * @param array $args [$handler, $submission, $publicationFormat, $submissionFile]
+     */
+    public function bookCallback($hookName, $args): bool
+    {
+        [$handler, $submission, $publicationFormat, $submissionFile] = array_pad($args, 4, null);
+        if (!$handler || !$submission || !$publicationFormat || !$submissionFile) {
+            return Hook::CONTINUE;
+        }
+        if (!self::isEpubFile($submissionFile->getData('mimetype'), $submissionFile->getLocalizedData('name'), $submissionFile->getData('path'))) {
+            return Hook::CONTINUE;
+        }
+
+        // The publication of the URL: the handler has already resolved the version.
+        $publication = $handler->publication ?? $submission->getCurrentPublication();
+        if (!$publication) {
+            return Hook::CONTINUE;
         }
 
         $request = Application::get()->getRequest();
-        $application = Application::get();
-
-        // A publicacao pedida na URL: o handler ja resolveu qual versao e.
-        $publication = $handler->publication ?? $submission->getCurrentPublication();
-        if (!$publication) {
-            return false;
-        }
-
         $isLatest = (int) $publication->getId() === (int) $submission->getData('currentPublicationId');
 
-        // Caminho comum das URLs do catalogo. Versoes antigas levam o
-        // segmento version/{publicationId}, como no proprio core.
+        // Older versions carry the version/{publicationId} segment, as in the core.
         $path = [$submission->getBestId()];
         if (!$isLatest) {
-            $path[] = 'version';
-            $path[] = $publication->getId();
+            array_push($path, 'version', $publication->getId());
         }
 
-        $parentUrl = $request->url(null, 'catalog', 'book', $path);
-
-        $filePath = array_merge($path, [$publicationFormat->getBestId(), $submissionFile->getBestId()]);
-        $epubUrl = $request->url(null, 'catalog', 'download', $filePath);
-
-        $templateMgr = TemplateManager::getManager($request);
-        $templateMgr->assign([
-            'displayTemplateResource' => $this->getTemplateResource('display.tpl'),
-            'pluginUrl' => $request->getBaseUrl() . '/' . $this->getPluginPath(),
+        $this->display($request, [
             'submission' => $submission,
             'publication' => $publication,
             'publicationFormat' => $publicationFormat,
             'submissionFile' => $submissionFile,
-            'currentVersionString' => $application->getCurrentVersion()->getVersionString(false),
             'isLatestPublication' => $isLatest,
             'title' => $publication->getLocalizedFullTitle(),
-            'epubUrl' => $epubUrl,
-            'parentUrl' => $parentUrl,
+            'isTitleHtml' => false,
+            'epubUrl' => $request->url(null, 'catalog', 'download', array_merge($path, [$publicationFormat->getBestId(), $submissionFile->getBestId()])),
+            'parentUrl' => $request->url(null, 'catalog', 'book', $path),
             'galleyTitle' => __('submission.representationOfTitle', [
                 'representation' => $publicationFormat->getLocalizedName(),
                 'title' => $publication->getLocalizedFullTitle(),
@@ -160,72 +159,29 @@ class EpubJsViewerPlugin extends \PKP\plugins\GenericPlugin
             ]),
         ]);
 
-        $templateMgr->display($this->getTemplateResource('display.tpl'));
-        return true;
+        return Hook::ABORT;
     }
 
     /**
-     * O OMP guarda o mimetype no arquivo, nao no formato de publicacao.
-     * Alguns envios chegam como application/octet-stream, entao a extensao
-     * decide quando o mimetype registrado nao ajuda.
-     */
-    private function isEpub($submissionFile): bool
-    {
-        return self::isEpubFile(
-            $submissionFile->getData('mimetype'),
-            $submissionFile->getLocalizedData('name'),
-            $submissionFile->getData('path')
-        );
-    }
-
-    /**
-     * Decide se o arquivo e um EPUB.
+     * OJS and OPS: show an EPUB galley of a submission in the reader.
      *
-     * Puro de proposito: separado do objeto de arquivo, e a regra que decide se
-     * o plugin assume ou nao a renderizacao, e da para cobrir por teste sem subir
-     * aplicacao. A extensao tem voz porque nem todo envio chega com o mimetype
-     * correto — o OMP grava application/octet-stream em alguns casos.
+     * @param string $hookName
+     * @param array $args OJS [$request, $issue, $galley, $submission]; OPS [$request, $galley, $submission]
      */
-    public static function isEpubFile(?string $mimetype, ?string $name, ?string $path): bool
+    public function submissionCallback($hookName, $args): bool
     {
-        if ($mimetype === self::EPUB_MIME_TYPE) {
-            return true;
-        }
-        foreach ([$name, $path] as $nome) {
-            if ($nome && strtolower(pathinfo($nome, PATHINFO_EXTENSION)) === 'epub') {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Present an EPUB article galley inside the epub.js reader.
-     */
-    public function submissionCallback($hookName, $args)
-    {
-        $request = &$args[0];
-        $application = Application::get();
-
-        switch ($application->getName()) {
-            case 'ojs2':
-                $issue = &$args[1];
-                $galley = &$args[2];
-                $submission = &$args[3];
-                $submissionNoun = 'article';
-                break;
-            case 'ops':
-                $galley = &$args[1];
-                $submission = &$args[2];
-                $submissionNoun = 'preprint';
-                $issue = null;
-                break;
-            default:
-                throw new Exception('Unknown application!');
+        $request = $args[0];
+        if (Application::get()->getName() === 'ojs2') {
+            [, $issue, $galley, $submission] = $args;
+            $submissionNoun = 'article';
+        } else {
+            [, $galley, $submission] = $args;
+            $issue = null;
+            $submissionNoun = 'preprint';
         }
 
         if (!$galley || $galley->getFileType() !== self::EPUB_MIME_TYPE) {
-            return false;
+            return Hook::CONTINUE;
         }
 
         $galleyPublication = null;
@@ -236,22 +192,12 @@ class EpubJsViewerPlugin extends \PKP\plugins\GenericPlugin
             }
         }
         if (!$galleyPublication) {
-            return false;
+            return Hook::CONTINUE;
         }
 
-        $templateMgr = TemplateManager::getManager($request);
-
-        $epubUrl = $request->url(
-            null,
-            $submissionNoun,
-            'download',
-            [$submission->getBestId(), $galley->getBestGalleyId(), $galley->getFile()->getId()]
-        );
         $parentUrl = $request->url(null, $submissionNoun, 'view', [$submission->getBestId()]);
 
-        $templateMgr->assign([
-            'displayTemplateResource' => $this->getTemplateResource('display.tpl'),
-            'pluginUrl' => $request->getBaseUrl() . '/' . $this->getPluginPath(),
+        $this->display($request, [
             'galleyFile' => $galley->getFile(),
             'issue' => $issue,
             'submission' => $submission,
@@ -259,11 +205,10 @@ class EpubJsViewerPlugin extends \PKP\plugins\GenericPlugin
             'bestId' => $galleyPublication->getData('urlPath') ?? $submission->getId(),
             'galley' => $galley,
             'galleyPublication' => $galleyPublication,
-            'currentVersionString' => $application->getCurrentVersion()->getVersionString(false),
             'isLatestPublication' => $submission->getData('currentPublicationId') === $galley->getData('publicationId'),
             'title' => $galleyPublication->getLocalizedTitle(null, 'html'),
             'isTitleHtml' => true,
-            'epubUrl' => $epubUrl,
+            'epubUrl' => $request->url(null, $submissionNoun, 'download', [$submission->getBestId(), $galley->getBestGalleyId(), $galley->getFile()->getId()]),
             'parentUrl' => $parentUrl,
             'galleyTitle' => __('submission.representationOfTitle', [
                 'representation' => $galley->getLabel(),
@@ -275,29 +220,23 @@ class EpubJsViewerPlugin extends \PKP\plugins\GenericPlugin
             ]),
         ]);
 
-        $templateMgr->display($this->getTemplateResource('display.tpl'));
-        return true;
+        return Hook::ABORT;
     }
 
     /**
-     * Present an EPUB issue galley inside the epub.js reader.
+     * OJS: show an EPUB issue galley in the reader.
+     *
+     * @param string $hookName
+     * @param array $args [$request, $issue, $galley]
      */
-    public function issueCallback($hookName, $args)
+    public function issueCallback($hookName, $args): bool
     {
-        $request = &$args[0];
-        $issue = &$args[1];
-        $galley = &$args[2];
-
+        [$request, $issue, $galley] = $args;
         if (!$galley || $galley->getFileType() !== self::EPUB_MIME_TYPE) {
-            return false;
+            return Hook::CONTINUE;
         }
 
-        $templateMgr = TemplateManager::getManager($request);
-        $parentUrl = $request->url(null, 'issue', 'view', [$issue->getBestIssueId()]);
-
-        $templateMgr->assign([
-            'displayTemplateResource' => $this->getTemplateResource('display.tpl'),
-            'pluginUrl' => $request->getBaseUrl() . '/' . $this->getPluginPath(),
+        $this->display($request, [
             'issue' => $issue,
             'galley' => $galley,
             'galleyFile' => $galley->getFile(),
@@ -305,11 +244,24 @@ class EpubJsViewerPlugin extends \PKP\plugins\GenericPlugin
             'title' => $issue->getLocalizedTitle(),
             'isTitleHtml' => false,
             'epubUrl' => $request->url(null, 'issue', 'download', [$issue->getBestIssueId(), $galley->getBestGalleyId()]),
-            'parentUrl' => $parentUrl,
+            'parentUrl' => $request->url(null, 'issue', 'view', [$issue->getBestIssueId()]),
             'galleyTitle' => $issue->getLocalizedTitle(),
         ]);
 
+        return Hook::ABORT;
+    }
+
+    /**
+     * Render the reader page.
+     */
+    private function display($request, array $variables): void
+    {
+        $templateMgr = TemplateManager::getManager($request);
+        $templateMgr->assign(array_merge([
+            'displayTemplateResource' => $this->getTemplateResource('display.tpl'),
+            'pluginUrl' => $request->getBaseUrl() . '/' . $this->getPluginPath(),
+            'currentVersionString' => Application::get()->getCurrentVersion()->getVersionString(false),
+        ], $variables));
         $templateMgr->display($this->getTemplateResource('display.tpl'));
-        return true;
     }
 }

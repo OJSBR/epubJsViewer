@@ -1,8 +1,9 @@
-# Keep the installable tarball lean (git archive on release).
-/.github            export-ignore
-/.gitignore         export-ignore
-/.gitattributes     export-ignore
-error_log           export-ignore
-/snapshot.png       export-ignore
-/snapshot.gif       export-ignore
-/snapshot.svg       export-ignore
+.github export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
+cypress export-ignore
+tests export-ignore
+error_log export-ignore
+snapshot.png export-ignore
+snapshot.gif export-ignore
+snapshot.svg export-ignore

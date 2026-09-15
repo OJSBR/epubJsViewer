@@ -10,10 +10,10 @@
 > [Credits & acknowledgements](#credits--acknowledgements) section.
 
 [![OJS](https://img.shields.io/badge/OJS-3.5-brightgreen)](https://pkp.sfu.ca/ojs/)
-[![Version](https://img.shields.io/badge/version-1.2.0.4-blue)](version.xml)
+[![Version](https://img.shields.io/badge/version-1.2.1.0-blue)](version.xml)
 [![License](https://img.shields.io/badge/license-GPL--3.0-lightgrey)](LICENSE)
 
-**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/epubJsViewer/releases/download/1.2.0.4/epubJsViewer-1.2.0.4.tar.gz) — or browse all [Releases](../../releases).
+**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/epubJsViewer/releases/download/1.2.1.0/epubJsViewer-1.2.1.0.tar.gz) — or browse all [Releases](../../releases).
 
 **▶️ Live demo:** [Editora UEMG — book with an EPUB format](https://ebooks.editora.uemg.br/editora/pt_BR/catalog/book/1)
 
@@ -39,7 +39,7 @@ useful for the wider community.
 
 | Application | Version | Branch | Release |
 |---|---|---|---|
-| OJS / OPS / OMP | 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(default)* | 1.2.0.4 |
+| OJS / OPS / OMP | 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(default)* | 1.2.1.0 |
 
 Requires PHP 8.2+.
 
@@ -87,7 +87,7 @@ The reader offers:
 
 ## No CDN
 
-**epub.js 0.3.93** and **JSZip 3.10.1** ship inside `js/`. No request ever leaves for a third-party
+**epub.js 0.3.93** and **JSZip 3.10.1** ship inside `lib/`. No request ever leaves for a third-party
 service: the reader works on closed networks and does not expose your readers to any third party.
 EPUB content is rendered with `allowScriptedContent: false`, so scripts embedded in the EPUB do not run.
 
@@ -98,35 +98,31 @@ and enable it under Installed Plugins. No configuration is required.
 
 ## Tests
 
-PHPUnit, in the PKP `ApplicationPlugins` suite:
+- **PHPUnit** (`tests/*Test.php`, on `PKP\tests\PKPTestCase`, 22 tests): EPUB detection by
+  mimetype and by file extension on the display name or the stored path (not every upload
+  arrives with the right mimetype), every other format left to the core, the reader page
+  (core footer hook kept, no inline script, every URL escaped, scripts inside the book never
+  run), the plugin class against the installed PKP, the 38 translations and the templates. From
+  the installation root:
 
-```bash
-cd lib/pkp/tests
-php ../lib/vendor/bin/phpunit --no-coverage -c phpunit.xml \
-  /absolute/path/to/plugins/generic/epubJsViewer/tests
-```
+  ```bash
+  lib/pkp/lib/vendor/bin/phpunit --configuration lib/pkp/tests/phpunit.xml --no-coverage "$PWD/plugins/generic/epubJsViewer/tests"
+  ```
 
-7 tests / 484 assertions covering EPUB detection by mimetype and by file extension on
-either the display name or the stored path (the extension has a vote because not every
-upload arrives with the right mimetype), the rejection of every other format, and locale
-integrity: every locale carrying every key with no empty value, no legacy locale codes,
-and every key used in a template present in `locale/en`, since in 3.5 a missing key
-renders as `##key##` instead of falling back to English.
+- **Cypress** (`cypress/tests/functional/EpubJsViewer.cy.js`, run by
+  [pkp-github-actions](https://github.com/pkp/pkp-github-actions) on OJS, OMP and OPS on every
+  push): enables the plugin. With `epubPage` (the path of an article, preprint or book page that
+  offers an EPUB) it also opens the EPUB in the reader and checks paging, zoom and a **visible**
+  way back — on OMP the link was once in the page at zero width. Those two fail with the hook off.
 
-Cypress, from the installation root:
+  ```bash
+  npx cypress run --config specPattern='plugins/generic/epubJsViewer/cypress/tests/functional/*.cy.js' \
+    --env contextPath=<context>,adminUser=<user>,adminPassword=<password>,epubPage=index.php/<context>/catalog/book/1
+  ```
 
-```bash
-npx cypress run \
-  --config specPattern='plugins/generic/epubJsViewer/cypress/tests/functional/*.cy.js' \
-  --env contextPath=mypress,adminUsername=admin,adminPassword=secret
-```
+- Verified on OJS 3.5.0.3 and OMP 3.5.0.3 with published EPUB files.
 
-3 specs: enabling the plugin, an EPUB opening in the reader instead of downloading, and
-paging, zoom and the way back. The specs discover the content instead of hard-coding an
-id, so the same file runs on OJS, OPS and OMP; they were executed against both an OJS 3.5
-and an OMP 3.5 installation. The "way back" assertion demands the link be **visible**, not
-merely present: on OMP it was once in the DOM at zero width, because the OMP core styles
-`.header_viewable_file` and does not know the `.header_view` this template uses.
+Tests are kept in the repository and are not part of the release package.
 
 ## Credits & acknowledgements
 
@@ -138,6 +134,12 @@ merely present: on OMP it was once in the DOM at zero width, because the OMP cor
   used here (BSD-2-Clause).
 - **[Stuk](https://github.com/Stuk/jszip)** — authors of **JSZip** (MIT).
 - **[PKP](https://pkp.sfu.ca)** — Open Journal Systems.
+
+## AI use
+
+Generative AI (Claude, by Anthropic) was used to write and run tests, improve the code and bring
+it in line with PKP standards. Every change is reviewed and tested by OJSBR, which is responsible
+for the published releases.
 
 ## License
 
@@ -179,7 +181,7 @@ interesse para a comunidade em geral.
 
 | Aplicação | Versão | Branch | Release |
 |---|---|---|---|
-| OJS / OPS / OMP | 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(padrão)* | 1.2.0.4 |
+| OJS / OPS / OMP | 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(padrão)* | 1.2.1.0 |
 
 Requer PHP 8.2+.
 
@@ -228,7 +230,7 @@ O leitor oferece:
 
 ### Sem CDN
 
-O **epub.js 0.3.93** e o **JSZip 3.10.1** estão embutidos em `js/`. Nenhuma requisição sai para
+O **epub.js 0.3.93** e o **JSZip 3.10.1** estão embutidos em `lib/`. Nenhuma requisição sai para
 serviço de terceiro: o leitor funciona em rede fechada e não expõe o acesso dos seus leitores a
 ninguém. O conteúdo do EPUB é renderizado com `allowScriptedContent: false`, de modo que scripts
 embutidos no arquivo não são executados.
@@ -240,29 +242,17 @@ Painel → Configurações → Website → Plugins → Enviar um novo plugin, ou
 
 ### Testes
 
-PHPUnit, na suíte `ApplicationPlugins` da PKP:
+PHPUnit em `tests/` (sobre `PKP\tests\PKPTestCase`, 22 testes) e Cypress em
+`cypress/tests/functional/` (rodado pelo [pkp-github-actions](https://github.com/pkp/pkp-github-actions)
+em OJS, OMP e OPS a cada push), com os comandos da seção em inglês. A suíte cobre a detecção de EPUB
+pelo mimetype e pela extensão, a recusa dos outros formatos, a página do leitor (hook de rodapé do
+núcleo, nenhum script inline, URLs escapadas, scripts do livro nunca executados), a classe do
+plugin contra o PKP instalado, as 38 traduções e os templates. Com `epubPage`, o Cypress abre o EPUB
+no leitor e confere paginação, zoom e o link de voltar **visível**.
 
-```bash
-cd lib/pkp/tests
-php ../lib/vendor/bin/phpunit --no-coverage -c phpunit.xml \
-  /caminho/absoluto/plugins/generic/epubJsViewer/tests
-```
+Verificado no OJS 3.5.0.3 e no OMP 3.5.0.3 com arquivos EPUB publicados.
 
-7 testes / 484 asserções cobrindo a detecção de EPUB pelo mimetype e pela extensão (a
-extensão tem voz porque nem todo envio chega com o mimetype certo), a recusa de todos os
-outros formatos e a integridade dos 38 locales.
-
-Cypress, a partir da raiz da instalação:
-
-```bash
-npx cypress run \
-  --config specPattern='plugins/generic/epubJsViewer/cypress/tests/functional/*.cy.js' \
-  --env contextPath=minhaeditora,adminUsername=admin,adminPassword=senha
-```
-
-3 specs: ligar o plugin, um EPUB abrir no leitor em vez de baixar, e a paginação, o zoom e
-o link de voltar. Os specs descobrem o conteúdo em vez de cravar id, então o mesmo arquivo
-roda em OJS, OPS e OMP — e foram executados numa instalação OJS 3.5 e numa OMP 3.5.
+Os testes ficam no repositório e não fazem parte do pacote da release.
 
 ### Créditos e agradecimentos
 
@@ -274,6 +264,12 @@ roda em OJS, OPS e OMP — e foram executados numa instalação OJS 3.5 e numa O
   utilizado (BSD-2-Clause).
 - **[Stuk](https://github.com/Stuk/jszip)** — autores do **JSZip** (MIT).
 - **[PKP](https://pkp.sfu.ca)** — Open Journal Systems.
+
+### Uso de IA
+
+Foi usada IA generativa (Claude, da Anthropic) para escrever e rodar testes, melhorar o código e
+alinhá-lo aos padrões da PKP. Toda mudança é revisada e testada pela OJSBR, que responde pelas
+releases publicadas.
 
 ### Licença
 

@@ -6,6 +6,21 @@ version numbers follow the PKP four-part scheme used in `version.xml`.
 
 ## [Unreleased]
 
+## [1.2.1.0] - 2026-09-15
+
+### Changed
+- The reader script moved from the page template to `js/reader.js`; the EPUB address is
+  passed in a `data-epub-url` attribute. epub.js and JSZip moved to `lib/`.
+- The reader page keeps the core `Templates::Common::Footer::PageFooter` hook, so analytics
+  and usage plugins work on it as on the PDF reader.
+- Every URL and every translation in an attribute of the template is escaped.
+- Hook callbacks return `Hook::CONTINUE` / `Hook::ABORT`; nothing is registered while the
+  site is under maintenance; the empty `settings.xml` is gone.
+- Source comments, tests and locale file headers follow the house standard (English, standard
+  copyright header).
+- Tests: PHPUnit on `PKPTestCase` with the standard suite; Cypress runs in PKP's continuous
+  integration on OJS, OMP and OPS; tests are no longer part of the release package.
+
 ## [1.2.0.4] - 2026-08-30
 
 ### Added
