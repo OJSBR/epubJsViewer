@@ -10,10 +10,10 @@
 > [Credits & acknowledgements](#credits--acknowledgements) section.
 
 [![OJS](https://img.shields.io/badge/OJS-3.5-brightgreen)](https://pkp.sfu.ca/ojs/)
-[![Version](https://img.shields.io/badge/version-1.2.1.0-blue)](version.xml)
+[![Version](https://img.shields.io/badge/version-5.0.0.0-blue)](version.xml)
 [![License](https://img.shields.io/badge/license-GPL--3.0-lightgrey)](LICENSE)
 
-**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/epubJsViewer/releases/download/1.2.1.0/epubJsViewer-1.2.1.0.tar.gz) — or browse all [Releases](../../releases).
+**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/epubJsViewer/releases/download/5.0.0.0/epubJsViewer-5.0.0.0.tar.gz) — or browse all [Releases](../../releases).
 
 **▶️ Live demo:** [Editora UEMG — book with an EPUB format](https://ebooks.editora.uemg.br/editora/pt_BR/catalog/book/1)
 
@@ -39,7 +39,7 @@ useful for the wider community.
 
 | Application | Version | Branch | Release |
 |---|---|---|---|
-| OJS / OPS / OMP | 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(default)* | 1.2.1.0 |
+| OJS / OPS / OMP | 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(default)* | 5.0.0.0 |
 
 Requires PHP 8.2+.
 
@@ -181,7 +181,7 @@ interesse para a comunidade em geral.
 
 | Aplicação | Versão | Branch | Release |
 |---|---|---|---|
-| OJS / OPS / OMP | 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(padrão)* | 1.2.1.0 |
+| OJS / OPS / OMP | 3.5.x | [`stable-3_5_0`](../../tree/stable-3_5_0) *(padrão)* | 5.0.0.0 |
 
 Requer PHP 8.2+.
 
